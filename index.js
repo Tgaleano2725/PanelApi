@@ -1,24 +1,31 @@
 import express from 'express';
+import bodyParser from "body-parser";
 import connectDB from "./config/db.js";
+import testsRoutes from "./Routes/tests.js";
+import cors from 'cors';
+const port = process.env.PORT || 5000;
+
+// Crear el servidor
+const app = express();
 
 // Conectar a la base de datos
 connectDB();
 
-// Crear el servidor
-const app = express();
-import cors from 'cors';
-const port = process.env.PORT || 5000;
+
 
 app.use(express.json());
 
+// BodyParser
+app.use(bodyParser.urlencoded({ limit: "50mb", extended: true }));
+app.use(bodyParser.json({ limit: "50mb", extended: true }));
+
+
 app.use(cors());
 
-app.listen(port, () => {
-    console.log(`Server is running on port: ${port}`);
-}
-);
 
-app.get('/', (req, res) => {
-    res.send('Hello World!');
-}
-);
+
+// Rutas
+app.listen(port, () => console.log(`Escuchando en el puerto ${port}...`));
+app.use("/api", testsRoutes);
+//app.use("/api", colaborador_routes);
+
