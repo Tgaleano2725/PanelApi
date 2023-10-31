@@ -8,6 +8,7 @@ dotenv.config();
 //? Crear un nuevo colaborador
 const createColaborador = async (req, res) => {
   try {
+    //Destructurar
     const {
       nombres,
       apellidos,
