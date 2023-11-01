@@ -8,7 +8,7 @@ const router = express.Router();
 router.post('/create_colaborador', verificarToken, createColaborador);
 router.post('/login_colaborador', loginColaborador);
 router.get('/list_colaborador',verificarToken, listColaborador);
-router.get('/list_filter_colab/:filtro', list_filter_colab);
+router.get('/list_filter_colab/:tipo?/:filtro', list_filter_colab);
 
 
 export default router;
