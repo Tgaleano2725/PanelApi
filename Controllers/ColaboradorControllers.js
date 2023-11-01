@@ -140,11 +140,19 @@ const listColaborador = async (req, res) => {
 
 const list_filter_colab = async (req, res) => {
   try {
-    const tipo = req.params["tipo"];
+    const tipo = req.params["tipo"] || "nombres";
     const filtro = req.params["filtro"];
+    
+    if (!["nombres", "correo", "rol"].includes(tipo)) {
+      return res.status(400).json({
+        message: "Tipo de filtro no válido",
+        data: {},
+      });
+    }
+
     let filtroQuery = {};
 
-    if (filtro && tipo && tipo !== "null") {
+    if (filtro) {
       filtroQuery[tipo] = new RegExp(filtro, "i");
     }
 
@@ -162,6 +170,7 @@ const list_filter_colab = async (req, res) => {
     });
   }
 };
+
 
 
 
