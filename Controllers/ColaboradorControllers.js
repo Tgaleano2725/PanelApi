@@ -138,4 +138,31 @@ const listColaborador = async (req, res) => {
   }
 };
 
-export { createColaborador, loginColaborador, listColaborador };
+const list_filter_colab = async (req, res) => {
+  try {
+    const tipo = req.params["tipo"];
+    const filtro = req.params["filtro"];
+    let filtroQuery = {};
+
+    if (filtro && tipo && tipo !== "null") {
+      filtroQuery[tipo] = new RegExp(filtro, "i");
+    }
+
+    const registro = await Colaborador.find(filtroQuery);
+    
+    res.status(200).json({
+      message: "Consulta exitosa",
+      data: registro,
+    });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({
+      message: "Algo salió mal",
+      data: {},
+    });
+  }
+};
+
+
+
+export { createColaborador, loginColaborador, listColaborador, list_filter_colab };
